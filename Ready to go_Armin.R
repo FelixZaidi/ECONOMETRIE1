@@ -85,3 +85,6 @@ library(EconometricsUGent)  ## Additional functions
 myDataRaw <- read.table("/Users/arminabbaspourtehrani/Documents/Universiteit/Academiejaar\ 2023-2024/Econometrie/Input\ Eco/Data.csv", header = TRUE, sep = ",")
 head(myDataRaw)
 
+
+
+
