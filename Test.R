@@ -82,5 +82,6 @@ library(EconometricsUGent)  ## Additional functions
 myDataRaw <- read.table("C:/Users/Brent Bogemans/OneDrive/Desktop/RcodeEconometrics/Data.csv", header = TRUE, sep = ",")
 head(myDataRaw)
 
-
-
+installed.packages()["EconometricsUGent", ]
+detach("package:EconometricsUGent", unload = TRUE)
+install.packages("C:/Users/Brent Bogemans/OneDrive/Desktop/RcodeEconometrics/EconometricsUGent_1.0.tar.gz", source = TRUE, repos = NULL)
