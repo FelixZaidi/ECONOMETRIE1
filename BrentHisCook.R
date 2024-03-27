@@ -97,3 +97,38 @@ Growth1=myDataRaw[,4]
 reg1=lm(Growth~Democraty+Growth1)                        # Estimation
 stargazer(reg1,type="text",digits = 4,style="all") # Make table with results
 vcov(reg1)                                         # Show variance-covariance matrix
+
+# Summary of the dataset
+summary(myDataRaw)
+
+# Structure of the dataset
+str(myDataRaw)
+
+head(myDataRaw)
+
+# Means of variables
+means <- sapply(myDataRaw, mean)
+means
+
+# Variances of variables
+variances <- sapply(myDataRaw, var)
+
+# Covariance matrix of variables
+covariance_matrix <- cov(myDataRaw)
+
+# Scatter plot: Democracy vs. GDP Growth
+plot(Growth1, Growth, xlab = "Growtht-1", ylab = "GDP Growth", main = "Scatter plot: Growth t-1 vs. GDP Growth")
+
+
+
+
+# Degrees of freedom
+df <- 171
+
+# Significance level
+alpha <- 0.05
+
+# Compute the critical value for the lower tail (one-sided)
+critical_value <- qt(1 - alpha, df)
+
+critical_value
