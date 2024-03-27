@@ -108,10 +108,13 @@ str(myDataRaw)
 head(myDataRaw)
 ## Variance of all columns in the data frame
 VariancesOfAllColumns = var(myDataRaw)
+VariancesOfAllColumns
 ## Variance matrix for all columns in the data frame
 CovarianceMatrixOffAllColumns = cov(myDataRaw)
+CovarianceMatrixOffAllColumns
 ## Correlation matrix for all columns in the data frame
 CorrelationMatrixOffAllColumns = cor(myDataRaw)
+CorrelationMatrixOffAllColumns
 ##Scatter plot: Democracy vs. GDP Growth
 plot(Democracy, GrowthCurrentYear, xlab = "Democracy", ylab = "GDP Growth", main = "Scatter plot: Democracy vs. GDP Growth")
 ## Scatter plot: Democracy vs. GDP Growth
