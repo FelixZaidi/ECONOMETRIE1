@@ -91,6 +91,10 @@ install.packages("C:/Users/Brent Bogemans/OneDrive/Desktop/RcodeEconometrics/Eco
 
 
 
+
+
+
+
 ### Step 0
 ## Load data from csv file
 GrowthCurrentYear = myDataRaw[,3]
@@ -104,6 +108,13 @@ RegBaselineModel = lm(GrowthCurrentYear ~ Democracy + GrowthPreviousYear)
 stargazer(RegBaselineModel, type="text", digits = 4, style="all")
 # Show variance-covariance matrix
 vcov(RegBaselineModel) 
+
+
+
+
+
+
+
 
 
 
@@ -130,6 +141,9 @@ hist(GrowthCurrentYear, breaks = 20, main = "Histogram of GDP Growth", xlab = "G
 heatmap(cor(myDataRaw), symm = TRUE, main = "Heatmap: Correlation matrix")
 
  
+
+
+
 
 
 
