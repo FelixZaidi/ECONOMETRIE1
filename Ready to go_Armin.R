@@ -118,7 +118,7 @@ plot(Democracy, GrowthCurrentYear, xlab = "Democracy", ylab = "GDP Growth", main
 plot(GrowthPreviousYear, GrowthCurrentYear, xlab = "GDP Growth Previous Year", ylab = "GDP Growth", main = "Scatter plot: GDP Growth Previous Year vs. GDP Growth")
 ## Histogram: GDP Growth
 hist(GrowthCurrentYear, breaks = 20, main = "Histogram of GDP Growth", xlab = "GDP Growth")
-# Heatmap: Correlation matrix
+## Heatmap: Correlation matrix
 heatmap(cor(myDataRaw), symm = TRUE, main = "Heatmap: Correlation matrix")
 
 
