@@ -86,25 +86,54 @@ installed.packages()["EconometricsUGent", ]
 detach("package:EconometricsUGent", unload = TRUE)
 install.packages("C:/Users/Brent Bogemans/OneDrive/Desktop/RcodeEconometrics/EconometricsUGent_1.0.tar.gz", source = TRUE, repos = NULL)
 
-getwd()
 
+
+
+
+
+### Step 0
 ## Load data from csv file
-Growth=myDataRaw[,3]
-Democraty=myDataRaw[,8]
-Growth1=myDataRaw[,4]
+GrowthCurrentYear = myDataRaw[,3]
+Democracy = myDataRaw[,8]
+GrowthPreviousYear = myDataRaw[,4]
 
 ## OLS estimation using lm package
-reg1=lm(Growth~Democraty+Growth1)                        # Estimation
-stargazer(reg1,type="text",digits = 4,style="all") # Make table with results
-vcov(reg1)                                         # Show variance-covariance matrix
+# Estimation
+RegBaselineModel = lm(GrowthCurrentYear ~ Democracy + GrowthPreviousYear)
+# Make table with results
+stargazer(RegBaselineModel, type="text", digits = 4, style="all")
+# Show variance-covariance matrix
+vcov(RegBaselineModel) 
 
-# Summary of the dataset
+
+
+### Step 1
+## Summary of the dataset
 summary(myDataRaw)
-
-# Structure of the dataset
+## Structure of the dataset
 str(myDataRaw)
-
+## First Values of dataset
 head(myDataRaw)
+## Variance of all columns in the data frame
+VariancesOfAllColumns = var(myDataRaw)
+## Variance matrix for all columns in the data frame
+CovarianceMatrixOffAllColumns = cov(myDataRaw)
+## Correlation matrix for all columns in the data frame
+CorrelationMatrixOffAllColumns = cor(myDataRaw)
+##Scatter plot: Democracy vs. GDP Growth
+plot(Democracy, GrowthCurrentYear, xlab = "Democracy", ylab = "GDP Growth", main = "Scatter plot: Democracy vs. GDP Growth")
+## Scatter plot: Democracy vs. GDP Growth
+plot(GrowthPreviousYear, GrowthCurrentYear, xlab = "GDP Growth Previous Year", ylab = "GDP Growth", main = "Scatter plot: GDP Growth Previous Year vs. GDP Growth")
+## Histogram: GDP Growth
+hist(GrowthCurrentYear, breaks = 20, main = "Histogram of GDP Growth", xlab = "GDP Growth")
+# Heatmap: Correlation matrix
+heatmap(cor(myDataRaw), symm = TRUE, main = "Heatmap: Correlation matrix")
+
+ 
+
+
+
+
 
 # Means of variables
 means <- sapply(myDataRaw, mean)
@@ -115,10 +144,6 @@ variances <- sapply(myDataRaw, var)
 
 # Covariance matrix of variables
 covariance_matrix <- cov(myDataRaw)
-
-# Scatter plot: Democracy vs. GDP Growth
-plot(Growth1, Growth, xlab = "Growtht-1", ylab = "GDP Growth", main = "Scatter plot: Growth t-1 vs. GDP Growth")
-
 
 
 
