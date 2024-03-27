@@ -85,3 +85,15 @@ head(myDataRaw)
 installed.packages()["EconometricsUGent", ]
 detach("package:EconometricsUGent", unload = TRUE)
 install.packages("C:/Users/Brent Bogemans/OneDrive/Desktop/RcodeEconometrics/EconometricsUGent_1.0.tar.gz", source = TRUE, repos = NULL)
+
+getwd()
+
+## Load data from csv file
+Growth=myDataRaw[,3]
+Democraty=myDataRaw[,8]
+Growth1=myDataRaw[,4]
+
+## OLS estimation using lm package
+reg1=lm(Growth~Democraty+Growth1)                        # Estimation
+stargazer(reg1,type="text",digits = 4,style="all") # Make table with results
+vcov(reg1)                                         # Show variance-covariance matrix
