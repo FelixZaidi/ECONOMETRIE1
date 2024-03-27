@@ -85,6 +85,52 @@ library(EconometricsUGent)  ## Additional functions
 myDataRaw <- read.table("/Users/arminabbaspourtehrani/Documents/Universiteit/Academiejaar\ 2023-2024/Econometrie/Input\ Eco/Data.csv", header = TRUE, sep = ",")
 head(myDataRaw)
 
+### Step 0
+## Load data from csv file
+GrowthCurrentYear = myDataRaw[,3]
+Democracy = myDataRaw[,8]
+GrowthPreviousYear = myDataRaw[,4]
+
+## OLS estimation using lm package
+# Estimation
+RegBaselineModel = lm(GrowthCurrentYear ~ Democracy + GrowthPreviousYear)
+# Make table with results
+stargazer(RegBaselineModel, type="text", digits = 4, style="all")
+# Show variance-covariance matrix
+vcov(RegBaselineModel) 
+
+### Step 1
+## Summary of the dataset
+summary(myDataRaw)
+## Structure of the dataset
+str(myDataRaw)
+## First Values of dataset
+head(myDataRaw)
+## Variance of all columns in the data frame
+VariancesOfAllColumns = var(myDataRaw)
+## Variance matrix for all columns in the data frame
+CovarianceMatrixOffAllColumns = cov(myDataRaw)
+## Correlation matrix for all columns in the data frame
+CorrelationMatrixOffAllColumns = cor(myDataRaw)
+##Scatter plot: Democracy vs. GDP Growth
+plot(Democracy, GrowthCurrentYear, xlab = "Democracy", ylab = "GDP Growth", main = "Scatter plot: Democracy vs. GDP Growth")
+## Scatter plot: Democracy vs. GDP Growth
+plot(GrowthPreviousYear, GrowthCurrentYear, xlab = "GDP Growth Previous Year", ylab = "GDP Growth", main = "Scatter plot: GDP Growth Previous Year vs. GDP Growth")
+## Histogram: GDP Growth
+hist(GrowthCurrentYear, breaks = 20, main = "Histogram of GDP Growth", xlab = "GDP Growth")
+# Heatmap: Correlation matrix
+heatmap(cor(myDataRaw), symm = TRUE, main = "Heatmap: Correlation matrix")
+
+
+
+
+
+
+
+
+
+
+
 
 
 
