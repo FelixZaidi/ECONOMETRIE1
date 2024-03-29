@@ -157,8 +157,20 @@ hist(GrowthCurrentYear, breaks = 100,
 ## Heatmap: Correlation matrix
 heatmap(cor(myDataRaw), symm = TRUE, main = "Heatmap: Correlation matrix")
 
+## Bereken model estimation voor elke meting
+OLSestimationsBaseLineModel = GrowthPreviousYear*0.3147 + Democracy*1.0747 - 0.0496
+OLSestimationsBaseLineModel
 
-
+## Bereken de error term
+Mu_i = GrowthCurrentYear - OLSestimationsBaseLineModel
+Mu_i
+## exspected error term
+mean(Mu_i)
+## Correlatie tussen variabelen
+correlationMu_i_Democracy = cor(Mu_i,Democracy)
+correlation
+correlationMu_i_GrowthPreviousYear = cor(Mu_i,GrowthPreviousYear)
+correlationMu_i_GrowthPreviousYear
 
 
 
