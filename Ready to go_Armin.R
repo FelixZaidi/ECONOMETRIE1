@@ -206,7 +206,11 @@ sample_list[[1]]
 sample_list[[2]]
 sample_list[[3]]
 
-
+## Histogram: GrowthCurrentYear
+hist(Mu_i, breaks = 100, 
+     main = "Histogram of Mu_i", 
+     xlab = "Mu_i", 
+     xlim = c(-20, 20))
 
 
 
