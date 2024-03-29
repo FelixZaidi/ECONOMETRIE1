@@ -116,13 +116,44 @@ CovarianceMatrixOffAllColumns
 CorrelationMatrixOffAllColumns = cor(myDataRaw)
 CorrelationMatrixOffAllColumns
 ##Scatter plot: Democracy vs. GrowthCurrentYear
-plot(Democracy, GrowthCurrentYear, xlab = "Democracy", ylab = "GDP Growth", main = "Scatter plot: Democracy vs. GDP Growth")
-## Scatter plot: GrowthPreviousYear vs. GrowthCurrentYear
-plot(GrowthPreviousYear, GrowthCurrentYear, xlab = "GDP Growth Previous Year", ylab = "GDP Growth", main = "Scatter plot: GDP Growth Previous Year vs. GDP Growth")
+plot(Democracy, GrowthCurrentYear, 
+     xlab = "Democracy", ylab = "GrowthCurrentYear", 
+     main = "Scatter plot: Democracy vs. GrowthCurrentYear", 
+     ylim = c(-20, 20))
+##Scatter plot: Democracy vs. GrowthCurrentYear with trendline
+plot(Democracy, GrowthCurrentYear, 
+     xlab = "Democracy", ylab = "GrowthCurrentYear", 
+     main = "Scatter plot: Democracy vs. GrowthCurrentYear", 
+     ylim = c(-20, 20))
+# Voeg een trendlijn toe
+lm_model <- lm(GrowthCurrentYear ~ Democracy)
+abline(lm_model, col = "red")
+## Scatter plot: GrowthPreviousYear vs. GrowthCurrentYear with trendline
+plot(GrowthPreviousYear, GrowthCurrentYear, 
+     xlab = "GrowthPreviousYear", ylab = "GrowthCurrentYear", 
+     main = "Scatter plot: GrowthPreviousYear vs. GrowthCurrentYear")
+# Pas een lineair regressiemodel toe
+lm_model <- lm(GrowthPreviousYear ~ Democracy)
+# Teken een rode trendlijn
+abline(lm_model, col = "red")
+
+## Scatter plot: GrowthPreviousYear vs. Democracy
+plot(Democracy, GrowthPreviousYear, 
+     xlab = "Democracy", ylab = "GrowthPreviousYear", 
+     main = "Scatter plot: Democracy vs. GrowthPreviousYear",
+     xlim = c(-1, 1), ylim = c(-20, 20))
+
+# Pas een lineair regressiemodel toe
+lm_model <- lm(GrowthPreviousYear ~ Democracy)
+# Teken een rode trendlijn
+abline(lm_model, col = "red")
+
 ## Histogram: GrowthCurrentYear
-hist(GrowthCurrentYear, breaks = 20, main = "Histogram of GDP Growth", xlab = "GDP Growth")
-# Box plot: GrowthCurrentYear by Democracy
-boxplot(GrowthCurrentYear ~ Democracy, data = myDataRaw, xlab = "Democracy", ylab = "GDP Growth", main = "Box plot: GDP Growth by Democracy")
+hist(GrowthCurrentYear, breaks = 100, 
+     main = "Histogram of GrowthCurrentYear", 
+     xlab = "GrowthCurrentYear", 
+     xlim = c(-20, 20))
+
 ## Heatmap: Correlation matrix
 heatmap(cor(myDataRaw), symm = TRUE, main = "Heatmap: Correlation matrix")
 
