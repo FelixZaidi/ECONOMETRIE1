@@ -161,13 +161,42 @@ covariance_matrix <- cov(myDataRaw)
 
 
 
-# Degrees of freedom
-df <- 171
+# Summary statistics for Democracy
+summary(Democracy)
 
-# Significance level
-alpha <- 0.05
+# Count the number of observations for each value of Democracy
+table(Democracy)
 
-# Compute the critical value for the lower tail (one-sided)
-critical_value <- qt(1 - alpha, df)
+# Visualize the distribution of Democracy (since it's a dummy variable)
+barplot(table(Democracy))
 
-critical_value
+summary(Democracy)
+
+
+## Bereken model estimation voor elke meting
+OLSestimationsBaseLineModel = GrowthPreviousYear*0.3147 + Democracy*1.0747 - 0.0496
+OLSestimationsBaseLineModel
+
+## Bereken de error term
+Mu_i = GrowthCurrentYear - OLSestimationsBaseLineModel
+Mu_i
+## exspected error term
+mean(Mu_i)
+## Correlatie tussen variabelen
+correlationMu_i_Democracy = cor(Mu_i,Democracy)
+correlation
+correlationMu_i_GrowthPreviousYear = cor(Mu_i,GrowthPreviousYear)
+correlationMu_i_GrowthPreviousYear
+
+
+
+
+
+
+
+
+
+
+
+
+
