@@ -157,15 +157,22 @@ hist(GrowthCurrentYear, breaks = 100,
 ## Heatmap: Correlation matrix
 heatmap(cor(myDataRaw), symm = TRUE, main = "Heatmap: Correlation matrix")
 
+
+
+### Step 3
+## Bereken de error term
 ## Bereken model estimation voor elke meting
 OLSestimationsBaseLineModel = GrowthPreviousYear*0.3147 + Democracy*1.0747 - 0.0496
 OLSestimationsBaseLineModel
-
-## Bereken de error term
 Mu_i = GrowthCurrentYear - OLSestimationsBaseLineModel
 Mu_i
-## exspected error term
+## exspected error term 1ste orde conditie 1
 mean(Mu_i)
+## 1ste orde conditie 2
+SecondorderConditDemocracy = sum(Mu_i*Democracy)/6150
+SecondorderConditDemocracy
+SecondorderConditGrowthPreviousYear = sum(Mu_i*GrowthPreviousYear)/6150
+SecondorderConditGrowthPreviousYear
 ## Correlatie tussen variabelen
 correlationMu_i_Democracy = cor(Mu_i,Democracy)
 correlation
@@ -173,11 +180,31 @@ correlationMu_i_GrowthPreviousYear = cor(Mu_i,GrowthPreviousYear)
 correlationMu_i_GrowthPreviousYear
 
 
+##### NIET GEBRUIKEN
+sample_indices <- sample(nrow(myDataRaw), size = 100, replace = FALSE)
+# Selecteer de rijen van het dataframe met behulp van de willekeurig gekozen indices
+sample_data <- myDataRaw[sample_indices, ]
+sample_data
+# Stel dat 'myDataRaw' de naam van je dataframe is
+# en 'n' het aantal waarnemingen dat je wilt nemen in elke steekproef
+n <- 100
+num_samples <- 100
 
+# Maak een lege lijst om de steekproeven op te slaan
+sample_list <- list()
 
-
-
-
+# Herhaal het proces van het nemen van een steekproef '5' keer
+for (i in 1:5) {
+  # Genereer willekeurige steekproefindices
+  sample_indices <- sample(nrow(myDataRaw), size = 100, replace = FALSE)
+  # Selecteer de rijen van het dataframe met behulp van de willekeurig gekozen indices
+  sample_data <- myDataRaw[sample_indices, ]
+  # Voeg de steekproef toe aan de lijst
+  sample_list[[i]] <- sample_data
+}
+sample_list[[1]]
+sample_list[[2]]
+sample_list[[3]]
 
 
 
