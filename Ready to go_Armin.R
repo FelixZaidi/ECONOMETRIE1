@@ -175,9 +175,14 @@ SecondorderConditGrowthPreviousYear = sum(Mu_i*GrowthPreviousYear)/6150
 SecondorderConditGrowthPreviousYear
 ## Correlatie tussen variabelen
 correlationMu_i_Democracy = cor(Mu_i,Democracy)
-correlation
+correlationMu_i_Democracy
 correlationMu_i_GrowthPreviousYear = cor(Mu_i,GrowthPreviousYear)
 correlationMu_i_GrowthPreviousYear
+## Exspected Mu_i x Xi
+ExspectedMu_ixDemocracy = mean(Democracy*Mu_i)
+ExspectedMu_ixDemocracy
+ExspectedMu_ixGrowthpreviousyear = mean(GrowthPreviousYear*Mu_i)
+ExspectedMu_ixGrowthpreviousyear
 
 
 ##### NIET GEBRUIKEN
@@ -212,6 +217,13 @@ hist(Mu_i, breaks = 100,
      xlab = "Mu_i", 
      xlim = c(-20, 20))
 
+jarque.test(Mu_i)
+var(Mu_i)
+
+s = skew(Mu_i)
+k = kurtosi(Mu_i)
+JB = n*(((s^2)/6) + (((k-3)^2)/24))
+n <- length(Mu_i)
 
 
 
