@@ -159,7 +159,7 @@ heatmap(cor(myDataRaw), symm = TRUE, main = "Heatmap: Correlation matrix")
 
 
 
-### Step 3
+### Step 3 NIET GEBRUIKEN MOMENTEEL
 ## Bereken de error term
 ## Bereken model estimation voor elke meting
 OLSestimationsBaseLineModel = GrowthPreviousYear*0.3147 + Democracy*1.0747 - 0.0496
