@@ -90,11 +90,6 @@ install.packages("C:/Users/Brent Bogemans/OneDrive/Desktop/RcodeEconometrics/Eco
 
 
 
-
-
-
-
-
 ### Step 0
 ## Load data from csv file
 GrowthCurrentYear = myDataRaw[,3]
@@ -109,15 +104,6 @@ stargazer(RegBaselineModel, type="text", digits = 4, style="all")
 # Show variance-covariance matrix
 vcov(RegBaselineModel) 
 
-
-
-
-
-
-
-
-
-
 ### Step 1
 ## Summary of the dataset
 summary(myDataRaw)
@@ -127,76 +113,119 @@ str(myDataRaw)
 head(myDataRaw)
 ## Variance of all columns in the data frame
 VariancesOfAllColumns = var(myDataRaw)
+VariancesOfAllColumns
 ## Variance matrix for all columns in the data frame
 CovarianceMatrixOffAllColumns = cov(myDataRaw)
+CovarianceMatrixOffAllColumns
 ## Correlation matrix for all columns in the data frame
 CorrelationMatrixOffAllColumns = cor(myDataRaw)
-##Scatter plot: Democracy vs. GDP Growth
-plot(Democracy, GrowthCurrentYear, xlab = "Democracy", ylab = "GDP Growth", main = "Scatter plot: Democracy vs. GDP Growth")
-## Scatter plot: Democracy vs. GDP Growth
-plot(GrowthPreviousYear, GrowthCurrentYear, xlab = "GDP Growth Previous Year", ylab = "GDP Growth", main = "Scatter plot: GDP Growth Previous Year vs. GDP Growth")
-## Histogram: GDP Growth
-hist(GrowthCurrentYear, breaks = 20, main = "Histogram of GDP Growth", xlab = "GDP Growth")
-# Heatmap: Correlation matrix
+CorrelationMatrixOffAllColumns
+##Scatter plot: Democracy vs. GrowthCurrentYear
+plot(Democracy, GrowthCurrentYear, 
+     xlab = "Democracy", ylab = "GrowthCurrentYear", 
+     main = "Scatter plot: Democracy vs. GrowthCurrentYear", 
+     ylim = c(-20, 20))
+##Scatter plot: Democracy vs. GrowthCurrentYear with trendline
+plot(Democracy, GrowthCurrentYear, 
+     xlab = "Democracy", ylab = "GrowthCurrentYear", 
+     main = "Scatter plot: Democracy vs. GrowthCurrentYear", 
+     ylim = c(-20, 20))
+# Voeg een trendlijn toe
+lm_model <- lm(GrowthCurrentYear ~ Democracy)
+abline(lm_model, col = "red")
+## Scatter plot: GrowthPreviousYear vs. GrowthCurrentYear with trendline
+plot(GrowthPreviousYear, GrowthCurrentYear, 
+     xlab = "GrowthPreviousYear", ylab = "GrowthCurrentYear", 
+     main = "Scatter plot: GrowthPreviousYear vs. GrowthCurrentYear")
+# Pas een lineair regressiemodel toe
+lm_model <- lm(GrowthPreviousYear ~ Democracy)
+# Teken een rode trendlijn
+abline(lm_model, col = "red")
+
+## Scatter plot: GrowthPreviousYear vs. Democracy
+plot(Democracy, GrowthPreviousYear, 
+     xlab = "Democracy", ylab = "GrowthPreviousYear", 
+     main = "Scatter plot: Democracy vs. GrowthPreviousYear",
+     xlim = c(-1, 1), ylim = c(-20, 20))
+
+# Pas een lineair regressiemodel toe
+lm_model <- lm(GrowthPreviousYear ~ Democracy)
+# Teken een rode trendlijn
+abline(lm_model, col = "red")
+
+## Histogram: GrowthCurrentYear
+hist(GrowthCurrentYear, breaks = 100, 
+     main = "Histogram of GrowthCurrentYear", 
+     xlab = "GrowthCurrentYear", 
+     xlim = c(-20, 20))
+
+## Heatmap: Correlation matrix
 heatmap(cor(myDataRaw), symm = TRUE, main = "Heatmap: Correlation matrix")
 
- 
 
 
-
-
-
-
-
-
-# Means of variables
-means <- sapply(myDataRaw, mean)
-means
-
-# Variances of variables
-variances <- sapply(myDataRaw, var)
-
-# Covariance matrix of variables
-covariance_matrix <- cov(myDataRaw)
-
-
-
-# Summary statistics for Democracy
-summary(Democracy)
-
-# Count the number of observations for each value of Democracy
-table(Democracy)
-
-# Visualize the distribution of Democracy (since it's a dummy variable)
-barplot(table(Democracy))
-
-summary(Democracy)
-
-
+### Step 3 NIET GEBRUIKEN MOMENTEEL
+## Bereken de error term
 ## Bereken model estimation voor elke meting
 OLSestimationsBaseLineModel = GrowthPreviousYear*0.3147 + Democracy*1.0747 - 0.0496
 OLSestimationsBaseLineModel
-
-## Bereken de error term
 Mu_i = GrowthCurrentYear - OLSestimationsBaseLineModel
 Mu_i
-## exspected error term
+## exspected error term 1ste orde conditie 1
 mean(Mu_i)
+## 1ste orde conditie 2
+SecondorderConditDemocracy = sum(Mu_i*Democracy)/6150
+SecondorderConditDemocracy
+SecondorderConditGrowthPreviousYear = sum(Mu_i*GrowthPreviousYear)/6150
+SecondorderConditGrowthPreviousYear
 ## Correlatie tussen variabelen
 correlationMu_i_Democracy = cor(Mu_i,Democracy)
-correlation
+correlationMu_i_Democracy
 correlationMu_i_GrowthPreviousYear = cor(Mu_i,GrowthPreviousYear)
 correlationMu_i_GrowthPreviousYear
+## Exspected Mu_i x Xi
+ExspectedMu_ixDemocracy = mean(Democracy*Mu_i)
+ExspectedMu_ixDemocracy
+ExspectedMu_ixGrowthpreviousyear = mean(GrowthPreviousYear*Mu_i)
+ExspectedMu_ixGrowthpreviousyear
 
 
+##### NIET GEBRUIKEN
+sample_indices <- sample(nrow(myDataRaw), size = 100, replace = FALSE)
+# Selecteer de rijen van het dataframe met behulp van de willekeurig gekozen indices
+sample_data <- myDataRaw[sample_indices, ]
+sample_data
+# Stel dat 'myDataRaw' de naam van je dataframe is
+# en 'n' het aantal waarnemingen dat je wilt nemen in elke steekproef
+n <- 100
+num_samples <- 100
 
+# Maak een lege lijst om de steekproeven op te slaan
+sample_list <- list()
 
+# Herhaal het proces van het nemen van een steekproef '5' keer
+for (i in 1:5) {
+  # Genereer willekeurige steekproefindices
+  sample_indices <- sample(nrow(myDataRaw), size = 100, replace = FALSE)
+  # Selecteer de rijen van het dataframe met behulp van de willekeurig gekozen indices
+  sample_data <- myDataRaw[sample_indices, ]
+  # Voeg de steekproef toe aan de lijst
+  sample_list[[i]] <- sample_data
+}
+sample_list[[1]]
+sample_list[[2]]
+sample_list[[3]]
 
+## Histogram: GrowthCurrentYear
+hist(Mu_i, breaks = 100, 
+     main = "Histogram of Mu_i", 
+     xlab = "Mu_i", 
+     xlim = c(-20, 20))
 
+jarque.test(Mu_i)
+var(Mu_i)
 
-
-
-
-
-
-
+s = skew(Mu_i)
+k = kurtosi(Mu_i)
+JB = n*(((s^2)/6) + (((k-3)^2)/24))
+n <- length(Mu_i)
