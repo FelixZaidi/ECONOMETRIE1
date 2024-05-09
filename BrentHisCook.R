@@ -95,7 +95,8 @@ install.packages("C:/Users/Brent Bogemans/OneDrive/Desktop/RcodeEconometrics/Eco
 GrowthCurrentYear = myDataRaw[,3]
 Democracy = myDataRaw[,8]
 GrowthPreviousYear = myDataRaw[,4]
-
+countryID = myDataRaw[,1]
+countryID
 ## OLS estimation using lm package
 # Estimation
 RegBaselineModel = lm(GrowthCurrentYear ~ Democracy + GrowthPreviousYear)
@@ -229,3 +230,98 @@ s = skew(Mu_i)
 k = kurtosi(Mu_i)
 JB = n*(((s^2)/6) + (((k-3)^2)/24))
 n <- length(Mu_i)
+
+# Load the required package
+ library(orcutt)
+  
+ # Fit the model using EGLS
+ egls_model <- cochrane.orcutt(RegBaselineModel, convergence = 8)
+ stargazer(egls_model, type = "text", digits = 4, style = "all")
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ # Calculate correlation matrix between Democracy and GrowthPreviousYear
+ correlation_matrix <- cor(Democracy, GrowthPreviousYear)
+ 
+ # Print correlation matrix
+ print(correlation_matrix)
+ 
+ sample_data
+ 
+
+
+
+ 
+ 
+ 
+ 
+ # Assuming you've already loaded your data from Excel into a dataframe named 'myDataRaw'
+ 
+ # Fit linear model
+ lm_model <- lm(dy ~ dy_L1 + D, data = myDataRaw)
+ 
+ # Obtain residuals from the linear model
+ residuals <- residuals(lm_model)
+ 
+ # Plotting
+ plot(myDataRaw$YearID, residuals, type = "l", xlab = "Year", ylab = "Standardized Residuals", main = "Standardized Residuals Over Time")
+ 
+ 
+ 
+ 
+ 
+ 
+ # Specify the CountryID you want to analyze
+ selected_country_id <- 20
+ 
+ # Filter data for the selected CountryID
+ country_data <- subset(myDataRaw, CountryID == selected_country_id)
+ 
+ # Fit linear model
+ lm_model <- lm(dy ~ dy_L1 + D, data = country_data)
+ 
+ # Obtain residuals from the linear model
+ residuals <- residuals(lm_model)
+ 
+ # Plotting
+ plot(country_data$YearID, residuals, type = "l", xlab = "Year", ylab = "Standardized Residuals", main = paste("Standardized Residuals Over Time for Country ID", selected_country_id))
+ 
+ 
+ 
+ 
+ 
+ # Install and load the 'forecast' package for the acf function
+ install.packages("forecast")
+ library(forecast)
+ 
+ # Calculate ACF for residuals
+ residuals_acf <- acf(residuals, plot = TRUE, main = paste("ACF of Residuals for Country ID", selected_country_id))
+ 
